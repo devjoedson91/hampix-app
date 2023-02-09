@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "hampix",
+    "slug": "hampix",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/hampix.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/hampix.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.joedson.devel.hampix",
+      "versionCode": 1
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
