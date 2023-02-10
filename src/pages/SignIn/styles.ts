@@ -5,7 +5,7 @@ export const Container = styled.View`
     flex: 1;
     justify-content: center;
     align-items: center;
-    background-color: #1d1d2e;
+    background-color: ${({theme}) => theme.colors.bgHome};
 
 `;
 
@@ -18,20 +18,23 @@ export const Logo = styled.Image`
 export const Input = styled.TextInput`
 
     width: 95%;
-    height: 40px;
-    background-color: #101026;
-    margin-bottom: 12px;
+    height: 48px;
+    background-color: rgba(24, 24, 27, 0.7);
+    margin-bottom: 16px;
     border-radius: 4px;
     padding-left: 8px;
-    color: #fff;
+    color: ${({theme}) => theme.colors.white};
+    font-family: ${({theme}) => theme.fonts.regular};
+    border-width: 2px;
+    border-color: ${({theme}) => theme.colors.text};
 
 `;
 
 export const Button = styled.TouchableOpacity`
 
     width: 95%;
-    height: 40px;
-    background-color: #3fffa3;
+    height: 48px;
+    background-color: ${({theme}) => theme.colors.bgButton};
     border-radius: 4px;
     justify-content: center;
     align-items: center;
@@ -41,7 +44,8 @@ export const ButtonText = styled.Text`
 
     font-size: 18px;
     font-weight: bold;
-    color: #101026;
+    color: ${({theme}) => theme.colors.white};
+    font-family: ${({theme}) => theme.fonts.bold};
 `;
 
 export const InputContainer = styled.View`
