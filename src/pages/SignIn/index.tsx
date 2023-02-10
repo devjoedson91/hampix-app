@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, StyleSheet, ImageBackground } from "react-native";
 import {
   Container,
   Logo,
@@ -24,7 +24,12 @@ export default function SignIn() {
   }
 
   return (
-    <Container>
+    <Container
+      source={require("../../assets/bg-burguer.png")}
+      imageStyle={{
+        top: "70%",
+      }}
+    >
       <Logo source={require("../../assets/logo.png")} />
 
       <InputContainer>
