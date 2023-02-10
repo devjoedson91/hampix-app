@@ -1,15 +1,15 @@
 # Hampix app
 [![NPM](https://img.shields.io/npm/l/react)](https://github.com/devsuperior/sds1-wmazoni/blob/master/LICENSE) 
 
-# Sobre o projeto
+## Sobre o projeto
 
 Projeto de aplicativo que realiza pedidos em pizzarias e lanchonetes.
 
-# Status
+## Status
 
 Adicionando funcionalidade de visualização do valor parcial do pedido.
 
-# Funcionalidades
+## Funcionalidades
 
 - Login de usuários.
 - Abertura de pedidos com opções para mesa ou delivery.
@@ -26,7 +26,7 @@ Adicionando funcionalidade de visualização do valor parcial do pedido.
    <img src="https://github.com/devjoedson91/hampix/commit/c53315da74db58331bc7facb45f9fa5caf5bc141#diff-b452b031d171cd0a5d66f08e82e9e1a231320dfcbd5031b13b5fda1ea6458724" width="200" />
 </div>
 
-# Tecnologias utilizadas
+## Tecnologias utilizadas
 ## Front end
 - React Native
 - Typescript
@@ -37,9 +37,9 @@ Adicionando funcionalidade de visualização do valor parcial do pedido.
 ## Back end
 - Node js
 - Express
-- postGresql
+- Mysql
 
-# Como executar o projeto
+## Como executar o projeto
 
 - Clone o repositório em https://github.com/devjoedson91/hampix
 - entrar no terminal cmd ou git bash
