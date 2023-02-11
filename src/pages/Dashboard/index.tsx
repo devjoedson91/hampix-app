@@ -1,101 +1,95 @@
-import React, { useState, useContext } from "react";
-import { CheckBox } from "react-native-elements";
-import { useNavigation } from "@react-navigation/native";
-import { StackParamsList } from "../../routes/app.routes";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-
-import {
-  Container,
-  DashButton,
-  AreaInput,
-  AreaInputName,
-  Title,
-  ButtonText,
-  TextSelect,
-  AreaSelect,
-} from "./styles";
+import React, { useState, useContext, useEffect } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { StackParamsList } from '../../routes/app.routes';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Text, Modal, FlatList } from 'react-native';
+import { Container, CategoryTitle, InputCatogary } from './styles';
+import { ModalPicker } from '../../components/ModalPicker';
 
 // import { AuthContext } from '../../contexts/AuthContext';
 
-import { api } from "../../services/api";
+import { api } from '../../services/api';
+
+export type CategoryProps = {
+    id: string;
+    name: string;
+};
+
+type ProductProps = {
+    id: string;
+    name: string;
+};
+
+type ItemProps = {
+    id: string;
+    product_id: string;
+    name: string;
+    amount: string | number;
+};
 
 export default function Dashboard() {
-  // const { signOut } = useContext(AuthContext);
+    // const { signOut } = useContext(AuthContext);
 
-  const navigation =
-    useNavigation<NativeStackNavigationProp<StackParamsList>>();
+    const navigation = useNavigation<NativeStackNavigationProp<StackParamsList>>();
 
-  const [number, setNumber] = useState("");
+    const [category, setCategory] = useState<CategoryProps[]>([]);
 
-  const [isSelected, setSelect] = useState(false);
+    const [categorySelected, setCategorySelected] = useState<CategoryProps | undefined>();
 
-  const [name, setName] = useState("");
+    const [products, setProducts] = useState<ProductProps[] | []>([]);
 
-  async function openOrder() {
-    if (number === "" && isSelected === false) return;
+    const [productSelected, setProductSelected] = useState<ProductProps | undefined>();
 
-    // fazer a requisição e abrir a mesa e navegar pra proxima tela
+    const [modalCategoryVisible, setModalCategoryVisible] = useState(false);
 
-    try {
-      const response = await api.post("/order", {
-        table: Number(number),
-        delivery: isSelected,
-        name: name,
-      });
+    async function loadCategories() {
+        const response = await api.get('/category');
 
-      navigation.navigate("Order", {
-        number: number,
-        isDelivery: isSelected,
-        order_id: response.data.id,
-      });
-
-      setNumber("");
-      setName("");
-      setSelect(false);
-    } catch (err) {
-      console.log("ERRO NA REQUISIÇÃO: ", err);
+        setCategory(response.data);
+        setCategorySelected(response.data[0]);
     }
-  }
 
-  function handleSelect() {
-    setNumber("");
-    setSelect(!isSelected);
-  }
+    async function loadProducts() {
+        const response = await api.get('/category/product', {
+            params: { category_id: categorySelected?.id },
+        });
 
-  return (
-    <Container>
-      <Title>Novo Pedido</Title>
-      <AreaInput
-        placeholder="Numero da mesa"
-        placeholderTextColor="#f0f0f0"
-        keyboardType="numeric"
-        value={number}
-        onChangeText={(text: string) => {
-          setNumber(text);
-          setName("");
-        }}
-        showInput={isSelected}
-      />
-      <AreaInputName
-        placeholder="Nome do cliente"
-        placeholderTextColor="#f0f0f0"
-        value={name}
-        onChangeText={(text: string) => setName(text)}
-        showInput={isSelected}
-      />
-      <AreaSelect>
-        <CheckBox
-          checkedIcon="check"
-          uncheckedIcon="square-o"
-          checkedColor="#3fffa3"
-          checked={isSelected}
-          onPress={handleSelect}
-        />
-        <TextSelect>Delivery</TextSelect>
-      </AreaSelect>
-      <DashButton onPress={openOrder}>
-        <ButtonText>Abrir pedido</ButtonText>
-      </DashButton>
-    </Container>
-  );
+        setProducts(response.data);
+        setProductSelected(response.data[0]);
+    }
+
+    useEffect(() => {
+        loadCategories();
+    }, []);
+
+    useEffect(() => {
+        loadProducts();
+    }, [categorySelected]);
+
+    function handleChangeCategory(item: CategoryProps) {
+        setCategorySelected(item);
+    }
+
+    function handleChangeProduct(item: ProductProps) {
+        setProductSelected(item);
+    }
+
+    return (
+        <Container>
+            <CategoryTitle>Categorias</CategoryTitle>
+            {category.length !== 0 && (
+                <InputCatogary onPress={() => setModalCategoryVisible(true)}>
+                    <Text>{categorySelected?.name}</Text>
+                </InputCatogary>
+            )}
+
+            <Modal transparent={true} visible={modalCategoryVisible} animationType="fade">
+                <ModalPicker
+                    handleCloseModal={() => setModalCategoryVisible(false)}
+                    options={category}
+                    selectedItem={handleChangeCategory}
+                />
+            </Modal>
+        </Container>
+    );
 }
