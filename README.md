@@ -7,7 +7,7 @@ Projeto de aplicativo que realiza pedidos em pizzarias e lanchonetes.
 
 ## Status
 
-Adicionando funcionalidade de visualização do valor parcial do pedido.
+Fase de reformulação.
 
 ## Funcionalidades
 
