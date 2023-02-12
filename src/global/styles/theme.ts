@@ -7,7 +7,8 @@ export default {
         bgButton: '#007D21',
         white: '#fff',
         black: '#000',
-        red800: '#D73A21'
+        red800: '#D73A21',
+        zinc800: '#A1A1A1'
     },
     fonts: {
         regular: 'MPLUSRounded1c_400Regular',

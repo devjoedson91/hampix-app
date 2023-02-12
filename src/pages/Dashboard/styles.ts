@@ -7,6 +7,23 @@ export const Container = styled.SafeAreaView`
     padding-top: 15px;
 `;
 
+export const ProductsContainer = styled.TouchableOpacity`
+
+    width: 100%;
+    /* height: 120px; */
+    border-bottom-width: 1px;
+    border-color: ${({theme}) => theme.colors.bgPages};
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px 15px;
+`;
+
+export const AreaDescription = styled.View`
+    justify-content: center;
+    max-width: 50%;
+`;
+
 export const CategoryTitle = styled.Text`
 
     font-size: 17px;
@@ -29,4 +46,27 @@ export const InputCatogary = styled.TouchableOpacity`
     padding-left: 20px;
     padding-right: 20px;
 `;
+
+export const Name = styled.Text`
+    font-family: ${({theme}) => theme.fonts.bold};
+    font-size: 20px;
+    line-height: 24px;
+    color: ${({theme}) => theme.colors.black};
+`;
+
+export const Description = styled.Text`
+    font-family: ${({theme}) => theme.fonts.medium};
+    font-size: 14px;
+    line-height: 18px;
+    color: ${({theme}) => theme.colors.zinc800};
+`;
+
+export const Price = styled.Text`
+    font-family: ${({theme}) => theme.fonts.medium};
+    font-size: 14px;
+    line-height: 20px;
+    color: ${({theme}) => theme.colors.priceText};
+`;
+
+export const ProductImage = styled.Image``;
 

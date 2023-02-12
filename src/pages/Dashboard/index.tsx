@@ -2,9 +2,21 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StackParamsList } from '../../routes/app.routes';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Text, Modal, FlatList } from 'react-native';
-import { Container, CategoryTitle, InputCatogary } from './styles';
+import { Text, Modal, FlatList, View } from 'react-native';
+import {
+    Container,
+    CategoryTitle,
+    InputCatogary,
+    ProductsContainer,
+    AreaDescription,
+    Name,
+    Description,
+    Price,
+    ProductImage,
+} from './styles';
 import { ModalPicker } from '../../components/ModalPicker';
+import { formatPrice } from '../../util/format';
+import { Loading } from '../../components/Loading';
 
 // import { AuthContext } from '../../contexts/AuthContext';
 
@@ -18,6 +30,9 @@ export type CategoryProps = {
 type ProductProps = {
     id: string;
     name: string;
+    banner: string;
+    description: string;
+    price: string;
 };
 
 type ItemProps = {
@@ -42,6 +57,8 @@ export default function Dashboard() {
 
     const [modalCategoryVisible, setModalCategoryVisible] = useState(false);
 
+    const [loading, setLoading] = useState(false);
+
     async function loadCategories() {
         const response = await api.get('/category');
 
@@ -50,12 +67,14 @@ export default function Dashboard() {
     }
 
     async function loadProducts() {
+        setLoading(true);
         const response = await api.get('/category/product', {
             params: { category_id: categorySelected?.id },
         });
 
         setProducts(response.data);
         setProductSelected(response.data[0]);
+        setLoading(false);
     }
 
     useEffect(() => {
@@ -81,6 +100,32 @@ export default function Dashboard() {
                 <InputCatogary onPress={() => setModalCategoryVisible(true)}>
                     <Text>{categorySelected?.name}</Text>
                 </InputCatogary>
+            )}
+
+            {products.length === 0 ? (
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text>Sem produtos para a categoria selecionada</Text>
+                </View>
+            ) : loading ? (
+                <Loading />
+            ) : (
+                <FlatList
+                    data={products}
+                    keyExtractor={(item) => item.id}
+                    renderItem={({ item }) => (
+                        <ProductsContainer>
+                            <AreaDescription>
+                                <Name>{item.name}</Name>
+                                <Description>{item.description}</Description>
+                                <Price>{formatPrice(parseFloat(item.price))}</Price>
+                            </AreaDescription>
+                            <ProductImage
+                                style={{ width: 127, height: 129, borderRadius: 4 }}
+                                source={{ uri: `${item.banner}` }}
+                            />
+                        </ProductsContainer>
+                    )}
+                />
             )}
 
             <Modal transparent={true} visible={modalCategoryVisible} animationType="fade">
