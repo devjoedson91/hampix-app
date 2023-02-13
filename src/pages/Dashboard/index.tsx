@@ -27,7 +27,7 @@ export type CategoryProps = {
     name: string;
 };
 
-type ProductProps = {
+export type ProductProps = {
     id: string;
     name: string;
     banner: string;
@@ -45,7 +45,7 @@ type ItemProps = {
 export default function Dashboard() {
     // const { signOut } = useContext(AuthContext);
 
-    const navigation = useNavigation<NativeStackNavigationProp<StackParamsList>>();
+    const { navigate } = useNavigation();
 
     const [category, setCategory] = useState<CategoryProps[]>([]);
 
@@ -93,6 +93,10 @@ export default function Dashboard() {
         setProductSelected(item);
     }
 
+    function navigateToOpenOrder(product_id: string) {
+        navigate('order', { product_id: product_id });
+    }
+
     return (
         <Container>
             <CategoryTitle>Categorias</CategoryTitle>
@@ -113,7 +117,7 @@ export default function Dashboard() {
                     data={products}
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => (
-                        <ProductsContainer>
+                        <ProductsContainer onPress={() => navigateToOpenOrder(item.id)}>
                             <AreaDescription>
                                 <Name>{item.name}</Name>
                                 <Description>{item.description}</Description>

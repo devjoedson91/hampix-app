@@ -2,33 +2,36 @@
 
 import React, { useContext } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'; // estilo de navegação stack
+import { useNavigation } from '@react-navigation/native';
 
 import Dashboard from '../pages/Dashboard';
-import Order from '../pages/Order';
+import { Order } from '../pages/Order';
 import FinishOrder from '../pages/FinishOrder';
+import { Cart } from '../pages/Cart';
 
 import { Feather } from '@expo/vector-icons';
 import { TouchableOpacity, View, Image } from 'react-native';
 
 import { AuthContext } from '../contexts/AuthContext';
 
-export type StackParamsList = {
-    Dashboard: undefined;
-    Order: {
-        number: number | string;
-        isDelivery: boolean;
-        order_id: string;
-    };
-    FinishOrder: {
-        number: number | string;
-        isDelivery: boolean;
-        order_id: string;
-    };
-};
+// export type StackParamsList = {
+//     Dashboard: undefined;
+//     Order: {
+//         number: number | string;
+//         isDelivery: boolean;
+//         order_id: string;
+//     };
+//     FinishOrder: {
+//         number: number | string;
+//         isDelivery: boolean;
+//         order_id: string;
+//     };
+// };
 
-const Stack = createNativeStackNavigator<StackParamsList>();
+const { Navigator, Screen } = createNativeStackNavigator();
 
 function AppRoutes() {
+    const { goBack } = useNavigation();
     const { signOut } = useContext(AuthContext);
 
     const headerDashboardStyle = {
@@ -53,19 +56,42 @@ function AppRoutes() {
         ),
     };
 
+    const headerRestPagesStyle = {
+        header: () => (
+            <View
+                style={{
+                    height: 98,
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    paddingHorizontal: 20,
+                    backgroundColor: '#fff',
+                    borderWidth: 1,
+                    borderColor: '#F2F2F2',
+                }}
+            >
+                <TouchableOpacity style={{ marginRight: 12 }} onPress={goBack}>
+                    <Feather name="arrow-left" size={28} color="#222222" />
+                </TouchableOpacity>
+                <Image source={require('../assets/logo.png')} />
+            </View>
+        ),
+    };
+
     return (
-        <Stack.Navigator>
-            <Stack.Screen name="Dashboard" component={Dashboard} options={headerDashboardStyle} />
-            <Stack.Screen name="Order" component={Order} options={{ headerShown: false }} />
-            <Stack.Screen
-                name="FinishOrder"
+        <Navigator>
+            <Screen name="dashboard" component={Dashboard} options={headerDashboardStyle} />
+            <Screen name="cart" component={Cart} />
+            <Screen name="order" component={Order} options={headerRestPagesStyle} />
+            <Screen
+                name="finishorder"
                 component={FinishOrder}
                 options={{
                     title: 'Finalizando',
                     headerTintColor: '#fff',
                 }}
             />
-        </Stack.Navigator>
+        </Navigator>
     );
 }
 
