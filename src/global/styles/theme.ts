@@ -8,7 +8,7 @@ export default {
         white: '#fff',
         black: '#000',
         red800: '#D73A21',
-        zinc800: '#A1A1A1'
+        zinc800: '#979797'
     },
     fonts: {
         regular: 'MPLUSRounded1c_400Regular',

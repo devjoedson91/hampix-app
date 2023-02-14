@@ -14,6 +14,7 @@ import {
     MPLUSRounded1c_800ExtraBold,
 } from '@expo-google-fonts/m-plus-rounded-1c';
 import { Loading } from './src/components/Loading';
+import { CartProvider } from './src/contexts/CartContext';
 
 export default function App() {
     const [fontsLoader] = useFonts({
@@ -26,8 +27,10 @@ export default function App() {
         <NavigationContainer>
             <AuthProvider>
                 <ThemeProvider theme={theme}>
-                    <StatusBar translucent={false} />
-                    {fontsLoader ? <Routes /> : <Loading />}
+                    <CartProvider>
+                        <StatusBar translucent={false} />
+                        {fontsLoader ? <Routes /> : <Loading />}
+                    </CartProvider>
                 </ThemeProvider>
             </AuthProvider>
         </NavigationContainer>
