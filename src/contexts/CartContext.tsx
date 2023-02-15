@@ -1,18 +1,26 @@
 import { useState, createContext, ReactNode } from 'react';
 import { api } from '../services/api';
 
-interface Product {
+export interface Product {
     id: string;
     name: string;
+    description: string;
     price: string;
     banner: string;
     amount: number;
     total: number;
 }
 
+interface UpdateProductAmount {
+    productId: string;
+    amount: number;
+}
+
 interface CartContextData {
     cart: Product[];
     addItemCart: (productId: string) => Promise<void>;
+    removeItemCart: (productId: string) => void;
+    updateProductAmount: ({ productId, amount }: UpdateProductAmount) => void;
 }
 
 interface CartProviderProps {
@@ -51,5 +59,45 @@ export function CartProvider({ children }: CartProviderProps) {
         setCart(updateCart);
     }
 
-    return <CartContext.Provider value={{ cart, addItemCart }}>{children}</CartContext.Provider>;
+    function removeItemCart(productId: string) {
+        try {
+            const updateCart = [...cart];
+            const indexItem = updateCart.findIndex((product) => product.id === productId);
+
+            if (indexItem >= 0) {
+                updateCart.splice(indexItem, 1);
+                setCart(updateCart);
+            } else {
+                throw Error();
+            }
+        } catch (err) {
+            console.log('Erro: ', err);
+        }
+    }
+
+    async function updateProductAmount({ productId, amount }: UpdateProductAmount) {
+        try {
+            if (amount <= 0) return;
+
+            const updateCart = [...cart];
+            const productExists = updateCart.find((product) => product.id === productId);
+
+            if (productExists) {
+                productExists.amount = amount;
+
+                productExists.total = productExists.amount * Number(productExists.price);
+                setCart(updateCart);
+            } else {
+                throw Error();
+            }
+        } catch (err) {
+            console.log('Erro na alteração de quantidade do produto: ', err);
+        }
+    }
+
+    return (
+        <CartContext.Provider value={{ cart, addItemCart, removeItemCart, updateProductAmount }}>
+            {children}
+        </CartContext.Provider>
+    );
 }

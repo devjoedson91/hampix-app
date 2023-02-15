@@ -16,20 +16,6 @@ import { AuthContext } from '../contexts/AuthContext';
 
 import { CartContext } from '../contexts/CartContext';
 
-// export type StackParamsList = {
-//     Dashboard: undefined;
-//     Order: {
-//         number: number | string;
-//         isDelivery: boolean;
-//         order_id: string;
-//     };
-//     FinishOrder: {
-//         number: number | string;
-//         isDelivery: boolean;
-//         order_id: string;
-//     };
-// };
-
 const { Navigator, Screen } = createNativeStackNavigator();
 
 function AppRoutes() {
@@ -46,7 +32,7 @@ function AppRoutes() {
                     display: 'flex',
                     flexDirection: 'row',
                     alignItems: 'center',
-                    paddingHorizontal: 20,
+                    justifyContent: 'center',
                     backgroundColor: '#fff',
                     borderWidth: 1,
                     borderColor: '#F2F2F2',
@@ -74,13 +60,13 @@ function AppRoutes() {
                     display: 'flex',
                     flexDirection: 'row',
                     alignItems: 'center',
-                    paddingHorizontal: 20,
+                    justifyContent: 'center',
                     backgroundColor: '#fff',
                     borderWidth: 1,
                     borderColor: '#F2F2F2',
                 }}
             >
-                <TouchableOpacity style={{ marginRight: 12 }} onPress={goBack}>
+                <TouchableOpacity onPress={goBack}>
                     <Feather name="arrow-left" size={28} color="#222222" />
                 </TouchableOpacity>
                 <Image source={require('../assets/logo.png')} />

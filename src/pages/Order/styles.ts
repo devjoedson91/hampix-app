@@ -38,7 +38,7 @@ export const ContainerAddProduct = styled.View`
     align-items: center;
 `;
 
-export const BoxTotalItem = styled.View`
+export const AddItemButton = styled.TouchableOpacity`
     border-radius: 7px;
     background-color: ${({theme}) => theme.colors.bgButton};
     display: flex;
@@ -61,7 +61,7 @@ export const BoxAmountContainer = styled.View`
     justify-content: space-evenly;
 `;
 
-export const TotalText = styled.Text`
+export const AddItemText = styled.Text`
     color: ${({theme}) => theme.colors.white};
     font-family: ${({theme}) => theme.fonts.bold};
     line-height: 20px;

@@ -8,17 +8,17 @@ import {
     Name,
     Description,
     ContainerAddProduct,
-    BoxTotalItem,
-    TotalText,
+    AddItemButton,
+    AddItemText,
     BoxAmountContainer,
     AmountItem,
 } from './styles';
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
-import { ProductProps } from '../Dashboard';
 import { formatPrice } from '../../util/format';
 import { Feather } from '@expo/vector-icons';
 import { Loading } from '../../components/Loading';
 import { CartContext } from '../../contexts/CartContext';
+import { Product } from '../../contexts/CartContext';
 
 type RouteDetailParams = {
     Order: {
@@ -29,7 +29,7 @@ type RouteDetailParams = {
 type OrderRouteProps = RouteProp<RouteDetailParams, 'Order'>;
 
 export function Order() {
-    const { cart, addItemCart } = useContext(CartContext);
+    const { cart, addItemCart, updateProductAmount } = useContext(CartContext);
 
     const { params } = useRoute<OrderRouteProps>();
 
@@ -37,7 +37,7 @@ export function Order() {
 
     const [loading, setLoading] = useState(false);
 
-    const [product, setProduct] = useState<ProductProps>();
+    const [product, setProduct] = useState<Product>();
 
     async function loadProduct() {
         setLoading(true);
@@ -53,10 +53,15 @@ export function Order() {
 
     useEffect(() => {
         loadProduct();
+        console.log(cart);
     }, []);
 
-    function handleAddCart(product_id: string) {
+    function handleAddItemCart(product_id: string) {
         addItemCart(product_id);
+    }
+
+    function handleRemoveItemCart(product: Product) {
+        updateProductAmount({ productId: product.id, amount: product.amount - 1 });
     }
 
     if (loading) {
@@ -75,20 +80,23 @@ export function Order() {
             </AreaDescription>
             <ContainerAddProduct>
                 <BoxAmountContainer>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => handleRemoveItemCart(productExists as Product)}
+                        disabled={(productExists?.amount as number) <= 1 || !productExists}
+                    >
                         <Feather name="minus" size={22} color="#979797" />
                     </TouchableOpacity>
                     <AmountItem>{productExists ? productExists.amount : 0}</AmountItem>
-                    <TouchableOpacity onPress={() => handleAddCart(product?.id as string)}>
+                    <TouchableOpacity onPress={() => handleAddItemCart(product?.id as string)}>
                         <Feather name="plus" size={22} color="#F88B0C" />
                     </TouchableOpacity>
                 </BoxAmountContainer>
-                <BoxTotalItem>
-                    <TotalText>Total:</TotalText>
-                    <TotalText>
+                <AddItemButton onPress={() => handleAddItemCart(product?.id as string)}>
+                    <AddItemText>Adicionar</AddItemText>
+                    <AddItemText>
                         {productExists ? formatPrice(productExists.total) : formatPrice(0)}
-                    </TotalText>
-                </BoxTotalItem>
+                    </AddItemText>
+                </AddItemButton>
             </ContainerAddProduct>
         </Container>
     );
