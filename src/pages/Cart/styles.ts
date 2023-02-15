@@ -1,28 +1,27 @@
 import styled from 'styled-components/native';
 
-export const OrderContainer = styled.View`
+export const CartContainer = styled.View`
 
     flex: 1;
-    background-color: #1d1d2e;
-    padding: 5% 4% 5% 4%;
+    background-color: ${({theme}) => theme.colors.white};
+    padding: 20px 20px;
 
 
 `;
 
 export const Header = styled.View`
 
-    flex-direction: row;
-    margin-bottom: 12px;
-    align-items: center;
-    margin-top: 24px;
+    flex-direction: row;    
+    
 `;
 
 export const Title = styled.Text`
 
-    font-size: 30px;
-    font-weight: bold;
-    color: #fff;
-    margin-right: 14px;
+    color: ${({theme}) => theme.colors.green900};
+    font-family: ${({theme}) => theme.fonts.bold};
+    font-size: 25px;
+    margin-right: 20px;
+
 `;
 
 export const InputCatogary = styled.TouchableOpacity`

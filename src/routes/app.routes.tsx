@@ -19,7 +19,7 @@ import { CartContext } from '../contexts/CartContext';
 const { Navigator, Screen } = createNativeStackNavigator();
 
 function AppRoutes() {
-    const { goBack } = useNavigation();
+    const { goBack, navigate } = useNavigation();
     const { signOut } = useContext(AuthContext);
 
     const { cart } = useContext(CartContext);
@@ -42,7 +42,7 @@ function AppRoutes() {
                     <Feather name="log-out" size={28} color="#ff3f4b" />
                 </TouchableOpacity>
                 <Image source={require('../assets/logo.png')} />
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigate('cart')}>
                     <View style={styles.dot}>
                         <Text style={styles.dotText}>{cart?.length}</Text>
                     </View>
@@ -52,7 +52,7 @@ function AppRoutes() {
         ),
     };
 
-    const headerRestPagesStyle = {
+    const headerOrderPagesStyle = {
         header: () => (
             <View
                 style={{
@@ -70,7 +70,7 @@ function AppRoutes() {
                     <Feather name="arrow-left" size={28} color="#222222" />
                 </TouchableOpacity>
                 <Image source={require('../assets/logo.png')} />
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigate('cart')}>
                     <View style={styles.dot}>
                         <Text style={styles.dotText}>{cart?.length}</Text>
                     </View>
@@ -80,11 +80,41 @@ function AppRoutes() {
         ),
     };
 
+    const headerCartPagesStyle = {
+        header: () => (
+            <View
+                style={{
+                    height: 98,
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: '#fff',
+
+                    shadowColor: '#000',
+                    shadowOffset: {
+                        width: 0,
+                        height: 3,
+                    },
+                    shadowOpacity: 0.25,
+                    shadowRadius: 3.84,
+
+                    elevation: 5,
+                }}
+            >
+                <TouchableOpacity onPress={goBack}>
+                    <Feather name="arrow-left" size={28} color="#222222" />
+                </TouchableOpacity>
+                <Image source={require('../assets/logo.png')} />
+            </View>
+        ),
+    };
+
     return (
         <Navigator>
             <Screen name="dashboard" component={Dashboard} options={headerDashboardStyle} />
-            <Screen name="cart" component={Cart} />
-            <Screen name="order" component={Order} options={headerRestPagesStyle} />
+            <Screen name="order" component={Order} options={headerOrderPagesStyle} />
+            <Screen name="cart" component={Cart} options={headerCartPagesStyle} />
             <Screen
                 name="finishorder"
                 component={FinishOrder}
