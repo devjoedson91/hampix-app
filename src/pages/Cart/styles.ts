@@ -4,14 +4,20 @@ export const CartContainer = styled.View`
 
     flex: 1;
     background-color: ${({theme}) => theme.colors.white};
-    padding: 20px 20px;
 
+`;
 
+export const NoCartContainer = styled.View`
+    flex: 1;
+    background-color: ${({theme}) => theme.colors.white};
+    align-items: center;
+    justify-content: center;
 `;
 
 export const Header = styled.View`
 
-    flex-direction: row;    
+    flex-direction: row;
+    padding: 20px;
     
 `;
 
@@ -24,62 +30,42 @@ export const Title = styled.Text`
 
 `;
 
-export const InputCatogary = styled.TouchableOpacity`
-
-    background-color: #101026;
+export const ImageItem = styled.Image`
+    width: 127px;
+    height: 127px;
     border-radius: 4px;
-    width: 100%;
-    height: 40px;
-    margin-bottom: 12px;
-    justify-content: center;
-    padding-left: 8px;
-    padding-right: 8px;
 `;
 
-export const InputProduct = styled.TouchableOpacity`
-
-    background-color: #101026;
-    border-radius: 4px;
+export const ItemsContainer = styled.View`
     width: 100%;
-    height: 40px;
-    margin-bottom: 12px;
-    justify-content: center;
-    padding-left: 8px;
-    padding-right: 8px;
-    
+    /* height: 120px; */
+    border-bottom-width: 1px;
+    border-color: ${({theme}) => theme.colors.zinc800};
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px 20px;
 `;
 
-export const QtdContainer = styled.View`
-
+export const AreaDescription = styled.View`
+    flex: 1;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+`;
+
+export const Section = styled.View`
+
+    height: 296px;
 
 `;
 
-export const QtdText = styled.Text`
+export const DescriptionBlock = styled.View`
 
-    font-size: 20px;
-    font-weight: bold;
-    color: #fff;
-
-`;
-
-export const QtdInput = styled.TextInput`
-
-    background-color: #101026;
-    border-radius: 4px;
-    width: 60%;
-    height: 40px;
-    margin-bottom: 12px;
-    text-align: center;
-    justify-content: center;
-    padding-left: 8px;
-    padding-right: 8px;
-    color: #fff;
-    font-size: 20px;
-
-
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 127px;
+    padding: 15px;
 `;
 
 export const ActionsContainer = styled.View`
@@ -90,32 +76,22 @@ export const ActionsContainer = styled.View`
 
 `;
 
-export const ButtonAdd = styled.TouchableOpacity`
+export const NameProduct = styled.Text`
 
-    width: 20%;
-    background-color: #3fd1ff;
-    border-radius: 4px;
-    height: 40px;
-    justify-content: center;
-    align-items: center;
-
-`;
-
-export const ButtonGo = styled.TouchableOpacity`
-
-    background-color: #3fffa3;
-    border-radius: 4px;
-    width: 75%;
-    height: 40px;
-    align-items: center;
-    justify-content: center;
-
-`;
-
-export const ActionsText = styled.Text`
-
-    color: #101026;
+    color: ${({theme}) => theme.colors.text};
     font-size: 18px;
-    font-weight: bold;
+    font-family: ${({theme}) => theme.fonts.medium};
 
+`;
+
+export const Price = styled.Text`
+    color: ${({theme}) => theme.colors.priceText};
+    font-size: 16px;
+    font-family: ${({theme}) => theme.fonts.medium};
+`;
+
+export const NoCartText = styled.Text`
+    color: ${({theme}) => theme.colors.text};
+    font-size: 16px;
+    font-family: ${({theme}) => theme.fonts.medium};
 `;

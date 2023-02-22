@@ -43,9 +43,11 @@ function AppRoutes() {
                 </TouchableOpacity>
                 <Image source={require('../assets/logo.png')} />
                 <TouchableOpacity onPress={() => navigate('cart')}>
-                    <View style={styles.dot}>
-                        <Text style={styles.dotText}>{cart?.length}</Text>
-                    </View>
+                    {cart.length === 0 ? null : (
+                        <View style={styles.dot}>
+                            <Text style={styles.dotText}>{cart?.length}</Text>
+                        </View>
+                    )}
                     <Feather name="shopping-cart" size={30} color="#000" />
                 </TouchableOpacity>
             </View>
@@ -71,9 +73,11 @@ function AppRoutes() {
                 </TouchableOpacity>
                 <Image source={require('../assets/logo.png')} />
                 <TouchableOpacity onPress={() => navigate('cart')}>
-                    <View style={styles.dot}>
-                        <Text style={styles.dotText}>{cart?.length}</Text>
-                    </View>
+                    {cart.length === 0 ? null : (
+                        <View style={styles.dot}>
+                            <Text style={styles.dotText}>{cart?.length}</Text>
+                        </View>
+                    )}
                     <Feather name="shopping-cart" size={30} color="#000" />
                 </TouchableOpacity>
             </View>

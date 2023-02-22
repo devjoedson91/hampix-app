@@ -1,5 +1,6 @@
-import { useState, createContext, ReactNode } from 'react';
+import { useState, useEffect, useLayoutEffect, createContext, ReactNode, useRef } from 'react';
 import { api } from '../services/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export interface Product {
     id: string;
@@ -21,6 +22,7 @@ interface CartContextData {
     addItemCart: (productId: string) => Promise<void>;
     removeItemCart: (productId: string) => void;
     updateProductAmount: ({ productId, amount }: UpdateProductAmount) => void;
+    removeCart: () => void;
 }
 
 interface CartProviderProps {
@@ -30,7 +32,39 @@ interface CartProviderProps {
 export const CartContext = createContext<CartContextData>({} as CartContextData);
 
 export function CartProvider({ children }: CartProviderProps) {
-    const [cart, setCart] = useState<Product[]>([]);
+    const [cart, setCart] = useState<Product[]>(() => {
+        let getData: Product[] = [];
+
+        (async () => {
+            const storagedCart = await AsyncStorage.getItem('@hampix:cart');
+
+            if (storagedCart !== null) {
+                return JSON.parse(storagedCart);
+            }
+
+            return [];
+        })()
+            .then((response) => {
+                const splicedStorage = getData.splice(0, 1, ...response);
+            })
+            .catch((err) => console.log('erro ao carregar storageCart: ', err));
+
+        return getData;
+    });
+
+    const prevCartRef = useRef<Product[]>();
+
+    useEffect(() => {
+        prevCartRef.current = cart;
+    });
+
+    const cartPreviousValue = prevCartRef.current ?? cart;
+
+    useEffect(() => {
+        if (cartPreviousValue !== cart) {
+            AsyncStorage.setItem('@hampix:cart', JSON.stringify(cart));
+        }
+    }, [cart, cartPreviousValue]);
 
     async function addItemCart(productId: string) {
         const updateCart = [...cart];
@@ -95,8 +129,14 @@ export function CartProvider({ children }: CartProviderProps) {
         }
     }
 
+    function removeCart() {
+        setCart(() => []);
+    }
+
     return (
-        <CartContext.Provider value={{ cart, addItemCart, removeItemCart, updateProductAmount }}>
+        <CartContext.Provider
+            value={{ cart, addItemCart, removeItemCart, updateProductAmount, removeCart }}
+        >
             {children}
         </CartContext.Provider>
     );
