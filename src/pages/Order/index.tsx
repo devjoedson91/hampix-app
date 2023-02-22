@@ -73,7 +73,8 @@ export function Order() {
             <AreaDescription>
                 <ProductImage
                     source={{ uri: `${product?.banner}` }}
-                    style={{ width: '100%', height: 270, marginBottom: 20, resizeMode: 'contain' }}
+                    style={{ width: '100%', height: 270, marginBottom: 20 }}
+                    resizeMode="cover"
                 />
                 <Name>{product?.name}</Name>
                 <Description>{product?.description}</Description>
