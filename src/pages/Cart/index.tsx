@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { TouchableOpacity, FlatList, Alert } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import { CartContext } from '../../contexts/CartContext';
+import { CartContext, Product } from '../../contexts/CartContext';
 import { formatPrice } from '../../util/format';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -18,6 +18,14 @@ import {
     Price,
     NoCartContainer,
     NoCartText,
+    BoxAmountContainer,
+    AmountItem,
+    TotalText,
+    TotalValue,
+    FormContainer,
+    FormHeader,
+    FinishButton,
+    TextButton,
 } from './styles';
 
 import { api } from '../../services/api';
@@ -59,9 +67,15 @@ export function Cart() {
     //     setItems(removeItem);
     // }
 
-    const { cart, removeCart } = useContext(CartContext);
+    const { cart, removeCart, updateProductAmount, addItemCart } = useContext(CartContext);
 
     const [loading, setLoading] = useState(false);
+
+    const total = formatPrice(
+        cart.reduce((sumTotal, product) => {
+            return (sumTotal += product.amount * Number(product.price));
+        }, 0)
+    );
 
     function handleFinishOrder() {}
 
@@ -89,6 +103,14 @@ export function Cart() {
                 style: 'cancel',
             },
         ]);
+    }
+
+    function handleRemoveItemCart(product: Product) {
+        updateProductAmount({ productId: product.id, amount: product.amount - 1 });
+    }
+
+    function handleAddItemCart(productId: string) {
+        addItemCart(productId);
     }
 
     if (loading) {
@@ -124,13 +146,34 @@ export function Cart() {
                                 />
                                 <DescriptionBlock>
                                     <NameProduct>{item.name}</NameProduct>
-                                    <Price>{formatPrice(Number(item.price))}</Price>
+                                    <Price>{formatPrice(item.total)}</Price>
                                 </DescriptionBlock>
                             </AreaDescription>
+                            <BoxAmountContainer>
+                                <TouchableOpacity
+                                    onPress={() => handleRemoveItemCart(item)}
+                                    disabled={item.amount <= 1 || !item}
+                                >
+                                    <Feather name="minus" size={22} color="#979797" />
+                                </TouchableOpacity>
+                                <AmountItem>{item.amount}</AmountItem>
+                                <TouchableOpacity onPress={() => handleAddItemCart(item.id)}>
+                                    <Feather name="plus" size={22} color="#F88B0C" />
+                                </TouchableOpacity>
+                            </BoxAmountContainer>
                         </ItemsContainer>
                     )}
                 />
             </Section>
+            <FormContainer>
+                <FormHeader>
+                    <TotalText>Total do pedido</TotalText>
+                    <TotalValue>{total}</TotalValue>
+                </FormHeader>
+                <FinishButton>
+                    <TextButton>finalizar</TextButton>
+                </FinishButton>
+            </FormContainer>
         </CartContainer>
     );
 }
