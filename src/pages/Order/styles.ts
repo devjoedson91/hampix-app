@@ -1,14 +1,16 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-
     flex: 1;
     background-color: ${({theme}) => theme.colors.white};
     justify-content: space-between;
 
 `;
 
-export const ProductImage = styled.Image``;
+export const ProductImage = styled.Image`
+    width: 100%;
+    height: 270px;
+`;
 
 export const AreaDescription = styled.View``;
 

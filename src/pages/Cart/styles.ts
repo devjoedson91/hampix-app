@@ -57,7 +57,7 @@ export const Section = styled.View`
 
     height: 296px;
     border-bottom-width: 1px;
-    border-color: ${({theme}) => theme.colors.zinc800};
+    border-color: ${({theme}) => theme.colors.bgPages};
 `;
 
 export const DescriptionBlock = styled.View`
@@ -142,7 +142,7 @@ export const FormHeader = styled.View`
     flex-direction: row;
     justify-content: space-between;
     border-bottom-width: 1px;
-    border-color: ${({theme}) => theme.colors.zinc800};
+    border-color: ${({theme}) => theme.colors.bgPages};
 `;
 
 export const FinishButton = styled.TouchableOpacity`

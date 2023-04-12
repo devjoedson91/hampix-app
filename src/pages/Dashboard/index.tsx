@@ -122,13 +122,15 @@ export default function Dashboard() {
                                 <Description>{item.description}</Description>
                                 <Price>{formatPrice(parseFloat(item.price))}</Price>
                             </AreaDescription>
+
                             <ProductImage
                                 style={{
                                     width: 127,
-                                    height: 129,
+                                    height: 179,
                                     borderRadius: 4,
                                 }}
                                 source={{ uri: `${item.banner}` }}
+                                resizeMode="stretch"
                             />
                         </ProductsContainer>
                     )}

@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { api } from '../../services/api';
 import {
     Container,
@@ -73,8 +73,12 @@ export function Order() {
             <AreaDescription>
                 <ProductImage
                     source={{ uri: `${product?.banner}` }}
-                    style={{ width: '100%', height: 270, marginBottom: 20 }}
                     resizeMode="contain"
+                    style={{
+                        marginBottom: 20,
+                        borderBottomWidth: 1,
+                        borderColor: '#E5E5E5',
+                    }}
                 />
                 <Name>{product?.name}</Name>
                 <Description>{product?.description}</Description>
