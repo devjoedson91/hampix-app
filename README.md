@@ -19,7 +19,7 @@ Fase de reformulação.
 
 ## Layout mobile
 
-<div style="display: flex; gap: 15px;">
+<div style="display: flex; gap: 2em;">
    <img src="https://github.com/devjoedson91/hampix-app/blob/main/assets/login.jpg" width="200" />
    <img src="https://github.com/devjoedson91/hampix-app/blob/main/assets/drinks.jpg" width="200" />
    <img src="https://github.com/devjoedson91/hampix-app/blob/main/assets/details.jpg" width="200" />
