@@ -21,9 +21,10 @@ Fase de reformulação.
 
 <div style="display: flex; gap: 15px;">
    <img src="https://github.com/devjoedson91/hampix-app/blob/main/assets/login.jpg" width="200" />
-   <img src="https://github.com/devjoedson91/hampix/commit/c53315da74db58331bc7facb45f9fa5caf5bc141#diff-0fff646087fa8ce737a1978727e848d2a7a8bd98e860abc6a03ddf2f21ee2ade" width="200" />
-   <img src="https://github.com/devjoedson91/hampix/commit/c53315da74db58331bc7facb45f9fa5caf5bc141#diff-9a992810b0ade7de711eb92c723ea266198f0e85a8ddd38f2b161e8c97649c5d" width="200" />
-   <img src="https://github.com/devjoedson91/hampix/commit/c53315da74db58331bc7facb45f9fa5caf5bc141#diff-b452b031d171cd0a5d66f08e82e9e1a231320dfcbd5031b13b5fda1ea6458724" width="200" />
+   <img src="https://github.com/devjoedson91/hampix-app/blob/main/assets/drinks.jpg" width="200" />
+   <img src="https://github.com/devjoedson91/hampix-app/blob/main/assets/details.jpg" width="200" />
+   <img src="https://github.com/devjoedson91/hampix-app/blob/main/assets/burgues.jpg" width="200" />
+   <img src="https://github.com/devjoedson91/hampix-app/blob/main/assets/cart.jpg" width="200" />
 </div>
 
 ## Tecnologias utilizadas
